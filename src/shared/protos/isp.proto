@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package powerefi.app.isp;
+
+import "options.proto";
+
+// TODO need to see about wiriting a nanoPB plugin to generate code for services
+service Isp {
+  option (powerefi.protobuf.app_id) = "ISP";
+  option (powerefi.protobuf.app_name) = "PowerEFI Insystem Programmer";
+  option (powerefi.protobuf.app_version) = 1;
+  option (powerefi.protobuf.request_buffer_size) = 4096;
+  option (powerefi.protobuf.response_buffer_size) = 4096;
+  
+  rpc GetState (GetStateRequest) returns (GetStateResponse);
+}
+
+// A simple and compact way to group multiple message types
+message IspMessages {
+  oneof messages {
+    GetBitStreamData get_bit_stream_data = 1;
+    BitStreamData bit_stream_data = 2;
+  }
+} 
+
+// ISP states
+enum IspState {
+  IDLE = 0;
+  PROCESSING = 1;
+  FAILED = 2;
+}
+
+// Get State
+message GetStateRequest {}
+message GetStateResponse {
+  IspState isp_state = 1;
+}
+
+// Requeset Bit Stream Data blob with a specified offset.
+message GetBitStreamData {
+  uint32 offset = 1;
+  uint32 length = 2;
+}
+
+// Bit Stream payload with requested starting address and length.
+message BitStreamData {
+  uint32 offset = 1;
+  uint32 length = 2;
+  bytes payload = 3;
+}
+
+
