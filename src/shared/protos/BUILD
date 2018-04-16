@@ -13,9 +13,12 @@ cc_library(
 
 cc_proto_library(   
   name = "powerefi_cc_protoapi",   
-  deps = ["powerefi_protoapi"]
+  deps = ["powerefi_protoapi"],
   #protoc = "@protobuf//:protoc",   
-  #default_runtime = "@protobuf//:protobuf",   
+  #default_runtime = "@protobuf//:protobuf",
+  visibility=[
+    "//visibility:public",
+  ],
 )
 
 proto_library(
