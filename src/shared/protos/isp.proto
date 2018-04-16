@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package powerefi.app.isp;
 
-import "options.proto";
+import "protos/options.proto";
 
 // TODO need to see about wiriting a nanoPB plugin to generate code for services
 service Isp {

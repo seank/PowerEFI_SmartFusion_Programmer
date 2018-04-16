@@ -1,4 +1,4 @@
-workspace(name = "PowerEFI_SmartFusion_Programmer")
+workspace(name = "PowerEFI_API")
 
 new_http_archive(
     name = "gtest",
