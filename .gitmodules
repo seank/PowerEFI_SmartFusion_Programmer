@@ -1,0 +1,6 @@
+[submodule "src/shared/third_party/ahdlc"]
+	path = src/shared/third_party/ahdlc
+	url = https://github.com/google/ahdlc.git
+[submodule "src/shared/third_party/nanopb"]
+	path = src/shared/third_party/nanopb
+	url = https://github.com/nanopb/nanopb.git
