@@ -1,7 +1,7 @@
 # Include the nanopb provided Makefile rules
-include ./third_party/nanopb/extra/nanopb.mk
+include ./src/shared/third_party/nanopb/extra/nanopb.mk
 
-PROTODIR=protos
+PROTODIR=src/shared/protos
 
 # Build rule for the protocol
 $(PROTODIR)/isp.pb.h: $(PROTODIR)/isp.proto
