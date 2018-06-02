@@ -13,14 +13,17 @@ service Isp {
   option (powerefi.protobuf.response_buffer_size) = 4096;
  
   rpc GetState (GetStateRequest) returns (GetStateResponse);
+  rpc GetBitstreamData (GetBitStreamDataRequest) returns (GetBitStreamDataResponse);
 }
 
 // A simple and compact way to group multiple message types
 message IspMessages {
   oneof messages {
-    GetBitStreamData get_bit_stream_data = 1;
-    BitStreamData bit_stream_data = 2;
+    GetBitStreamDataRequest get_bit_stream_data = 1;
+    GetBitStreamDataResponse bit_stream_data = 2;
   }
+
+  bytes payload = 32768;
 }
 
 // ISP states
@@ -37,16 +40,14 @@ message GetStateResponse {
 }
 
 // Requeset Bit Stream Data blob with a specified offset.
-message GetBitStreamData {
-  uint32 offset = 1;
+message GetBitStreamDataRequest {
+  uint32 byte_offset = 1;
   uint32 length = 2;
 }
 
 // Bit Stream payload with requested starting address and length.
-message BitStreamData {
+message GetBitStreamDataResponse {
   uint32 offset = 1;
   uint32 length = 2;
-  bytes payload = 3;
 }
-
 
