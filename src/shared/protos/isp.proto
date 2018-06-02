@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package powerefi.app.isp;
 
-import "protos/options.proto";
+import "src/shared/protos/options.proto";
 
 // TODO need to see about wiriting a nanoPB plugin to generate code for services
 service Isp {
@@ -22,7 +22,8 @@ message IspMessages {
     GetBitStreamDataRequest get_bit_stream_data = 1;
     GetBitStreamDataResponse bit_stream_data = 2;
   }
-
+  // Putting variable length fields makes for cheaper
+  // decoding on the embedded side.
   bytes payload = 32768;
 }
 
@@ -47,7 +48,6 @@ message GetBitStreamDataRequest {
 
 // Bit Stream payload with requested starting address and length.
 message GetBitStreamDataResponse {
-  uint32 offset = 1;
-  uint32 length = 2;
+  uint32 byte_offset = 1;
 }
 
