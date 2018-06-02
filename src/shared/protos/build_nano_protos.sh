@@ -20,7 +20,7 @@ do
   echo "Building $PROTO_FILE target dir: $DEST_DIR"
   # We don't want intermediate files to step on the C++ proto gens output
   # so we move the files to a new build dir.
-  BUILD_DIR=$(dirname "${var}")/nanopb_gen
+  BUILD_DIR=$(dirname "${var}")/nanopb_tmp
   mkdir -p $BUILD_DIR
   cp $var $BUILD_DIR
   # Finally build the .proto file.
@@ -31,5 +31,5 @@ do
   # C sources don't need any adjustments, just copy them over.
   cp $BUILD_DIR/${BASE_NAME}.pb.c $DEST_DIR
   # Remove temp files
-  rm $BUILD_DIR/$PROTO_FILE
+  rm -Rf $BUILD_DIR
 done
