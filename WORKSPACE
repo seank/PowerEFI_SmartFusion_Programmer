@@ -1,10 +1,10 @@
 workspace(name = "PowerEFI_SmartFusion_Programmer")
 
-new_http_archive(
-    name = "gtest",
-    url = "https://github.com/google/googletest/archive/release-1.7.0.zip",
-    sha256 = "b58cb7547a28b2c718d1e38aee18a3659c9e3ff52440297e965f5edffe34b6d0",
-    build_file = "gtest.BUILD",
+new_git_repository(
+    name = "googletest",
+    remote = "https://github.com/google/googletest",
+    tag = "release-1.8.0",
+    build_file = "src/gmock.BUILD",
 )
 
 git_repository(
@@ -12,6 +12,12 @@ git_repository(
     remote = "https://github.com/google/styleguide.git",
 )
 
+new_git_repository(
+    name = "com_github_nanopb_nanopb",
+    remote = "https://github.com/nanopb/nanopb.git",
+    commit = "2b0db997d7e85b2cc4ae4ee5654e63f6426b18a1",
+    build_file = "src/nanopb.BUILD",
+)
 
 # proto_library, cc_proto_library, and java_proto_library rules implicitly
 # depend on @com_google_protobuf for protoc and proto runtimes.

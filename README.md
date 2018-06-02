@@ -1,7 +1,15 @@
 # PowerEFI_Smartfusion_Programmer
 In system programmer firmware used to load new firmware and update FPGA fabric.
 
+####NOTE: nanoPB must be present in your $PATH or Bazel wont be able to build the embedded deps.
+          FIXME: Have Bazel take care of this in its sandbox. 
+
 ### Building sources
+
+#### Building Unit Tests:
+```shell
+bazel run //src/shared/protos:powerefi_protoapi_tests
+```
 
 # TODO create Bazel project for CortexM3:
 

@@ -1,13 +1,9 @@
-# Include the nanopb provided Makefile rules
-include ./src/shared/third_party/nanopb/extra/nanopb.mk
+#!/bin/make
 
-PROTODIR=src/shared/protos
+# Helper for eclipseCDT
 
-# Build rule for the protocol
-$(PROTODIR)/isp.pb.h: $(PROTODIR)/isp.proto
-	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(PROTODIR)/isp.proto
+all: tests
 
-$(PROTODIR)/options.pb.h: $(PROTODIR)/options.proto
-		$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. $(PROTODIR)/options.proto
-
-all: $(PROTODIR)/options.pb.h $(PROTODIR)/isp.pb.c
+tests:
+	bazel build src/shared/protos:powerefi_protoapi_tests
+	
