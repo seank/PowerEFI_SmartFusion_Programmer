@@ -21,6 +21,8 @@ message IspMessages {
   oneof messages {
     GetBitStreamDataRequest get_bit_stream_data = 1;
     GetBitStreamDataResponse bit_stream_data = 2;
+    GetStateRequest get_state_request = 3;
+    GetStateResponse get_state_response = 4;
   }
   // Putting variable length fields makes for cheaper
   // decoding on the embedded side.
