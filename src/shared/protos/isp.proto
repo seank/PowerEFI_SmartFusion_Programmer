@@ -23,6 +23,8 @@ message IspMessages {
     GetBitStreamDataResponse bit_stream_data = 2;
     GetStateRequest get_state_request = 3;
     GetStateResponse get_state_response = 4;
+    SetIspModeRequest set_isp_mode_request = 5;
+    IspOperationResultNotification isp_operation_result_notification = 6;
   }
   // Putting variable length fields makes for cheaper
   // decoding on the embedded side.
@@ -36,10 +38,98 @@ enum IspState {
   FAILED = 2;
 }
 
+// ISP modes
+enum IspMode {
+  AUTHENTICATE = 0;
+  PROGRAM = 1;
+  VERIFY = 2;
+  DUMMY_PROGRAM = 3;
+}
+
+/*
+  These constants are used by multiple services to communicate the outcome of a
+  system services request. These status codes are used across all types of
+  services.
+
+  - MSS_SYS_SUCCESS:
+      Indicates that the system services completed successfully. 
+
+  - MSS_SYS_UNEXPECTED_ERROR:
+      Indicates that the system failed in an unexpected way.
+
+  - MSS_SYS_MEM_ACCESS_ERROR:
+      Indicates that the System Controller could not access the memory used to
+      pass parameters to the System Controller or to return a service result to
+      the Cortex-M3.
+
+  - MSS_SYS_SERVICE_DISABLED_BY_FACTORY:
+      Indicates that the requested system service is not available on the
+      SmartFusion2 device.
+
+  - MSS_SYS_SERVICE_DISABLED_BY_USER:
+      Indicates that the requested system service has been disabled as part of
+      the hardware design.
+
+  - MSS_SYS_SERVICE_NOT_LICENSED
+      Indicates that the license is not available in SmartFusion2 device for 
+      this service.
+
+  - MSS_SYS_CLK_DIVISOR_ERROR
+      Indicates that on 060 device the divisor values for fclk, pclk0, pclk1, 
+      clk_fic64 are not equal to each other or the divisor values is set to 
+      divide by 32.
+ */
+
+enum IspResult {
+  SUCCESS = 0;
+  UNEXPECTED_ERROR = 200;
+  CLK_DIVISOR_ERROR = 201;
+  MEM_ACCESS_ERROR = 127;
+  SERVICE_NOT_LICENSED = 253;
+  SERVICE_DISABLED_BY_FACTORY = 254;
+  SERVICE_DISABLED_BY_USER = 255;
+}
+
+/*  Programming services specific status codes.  */
+enum IspProgrammingErrorCodes {
+  RESERVED = 0;
+  CHAINING_MISMATCH = 1;
+  UNEXPECTED_DATA_RECEIVED = 2;
+  INVALID_ENCRYPTION_KEY = 3;
+  INVALID_COMPONENT_HEADER = 4;
+  BACK_LEVEL_NOT_SATISFIED = 5;
+  DSN_BINDING_MISMATCH = 7;
+  ILLEGAL_COMPONENT_SEQUENCE = 8;
+  INSUFFICIENT_DEV_CAPABILITIES = 9;
+  INCORRECT_DEVICE_ID = 10;
+  UNSUPPORTED_BITSTREAM_PROT_VER = 11;
+  VERIFY_NOT_PERMITTED_ON_BITSTR = 12;
+  INVALID_DEVICE_CERTIFICATE = 13;
+  ABORT = 127;
+  NVM_VERIFY_FAILED = 129;
+  DEVICE_SECURITY_PROTECTED = 130;
+  PROGRAMMING_MODE_NOT_ENABLED = 131;
+  ENVM_PROGRAMMING_OPERATION_FAIL = 132;
+  ENVM_VERIFY_OPERATION_FAIL = 133;
+  ACCESS_ERROR = 134;
+  PUF_ACCESS_ERROR = 135;
+  BAD_COMPONENT = 136;
+}
+
+
 // Get State
 message GetStateRequest {}
 message GetStateResponse {
   IspState isp_state = 1;
+}
+
+message IspOperationResultNotification {
+  IspResult result = 1;
+  IspProgrammingErrorCodes error_code = 2;
+}
+
+message SetIspModeRequest {
+  IspMode isp_mode = 1;
 }
 
 // Requeset Bit Stream Data blob with a specified offset.
@@ -51,5 +141,5 @@ message GetBitStreamDataRequest {
 // Bit Stream payload with requested starting address and length.
 message GetBitStreamDataResponse {
   uint32 byte_offset = 1;
+  bool end_of_file = 2;
 }
-
