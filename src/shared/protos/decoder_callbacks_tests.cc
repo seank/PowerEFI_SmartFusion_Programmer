@@ -125,12 +125,14 @@ TEST_F(NanopbCallbacksTests, EncodeVariableByteArray) {
   EXPECT_EQ(true, parse_code);
 
   /* Check message ID to extract correct one-of */
+
   /* Check that we have payload */
   EXPECT_EQ(true, message.has_bit_stream_data());
   const GetBitStreamDataResponse& bit_stream_data = message.bit_stream_data();
   EXPECT_EQ(32, bit_stream_data.byte_offset());
   /* Input size should match output */
   EXPECT_EQ(bytes_field.length, message.payload().length());
+  /* input and output buffers should match */
   EXPECT_EQ(0, memcmp(_test_payload, message.payload().c_str(), BUFFER_SIZE));
 
 }
