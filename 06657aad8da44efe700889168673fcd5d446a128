@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e172307c_644b7e58",
+        "filename": "src/isp_firmware/interface_uart.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1013321
+      },
+      "writtenOn": "2018-08-27T18:58:11Z",
+      "side": 1,
+      "message": "hmmm. I have doubts about returning structures. Old doubts I can\u0027t put my finger on and are based on compilers of 20+ years ago. Maybe things are different now.... \n\nWhat I do is just pass in a ref to a structure.",
+      "revId": "06657aad8da44efe700889168673fcd5d446a128",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa179f4_7e56e3ca",
+        "filename": "src/isp_firmware/main.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1013321
+      },
+      "writtenOn": "2018-08-27T18:58:11Z",
+      "side": 1,
+      "message": "this is just a symbol defined in the linker script. I\u0027m not sure how this works .. you\u0027re getting a reference to a symbol? This isn\u0027t actually allocated anywhere in memory .. \n\nI\u0027m guessing that the compiler just sees that this is a symbol and pulls the value associated w/o complaint. Are you not getting a warning on this? can you pull the \u0026 and it still works (I\u0027m guessing yes).\n\nInstead of using this define, you could just export __vector_table_start. In fact to avoid all the casting, try something like:\n\nextern uint32 const * const __vector_table_start; /*\u003c just use what the linker script automatically provides for the startup code */\n\nand then just:\n__vector_table_start[0];   /*\u003c index into the vectbl easy */\n\nI think this is what you were looking for?\n\na lot of times, I setup \u0027overlays\u0027 on vector tables just for this purpose ... I don\u0027t have an example anywhere that I can find off hand.",
+      "revId": "06657aad8da44efe700889168673fcd5d446a128",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
