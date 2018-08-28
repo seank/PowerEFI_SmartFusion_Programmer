@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1313705_7b2fc2d1",
+        "filename": "src/isp_firmware/interface_uart.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1013315
+      },
+      "writtenOn": "2018-08-28T04:20:14Z",
+      "side": 1,
+      "message": "If I did that we could keep the prototype more consistent with other functions (FunctionReturnCodes_t etc).",
+      "parentUuid": "e172307c_644b7e58",
+      "revId": "06657aad8da44efe700889168673fcd5d446a128",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4fa179f4_7e56e3ca",
         "filename": "src/isp_firmware/main.c",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "06657aad8da44efe700889168673fcd5d446a128",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c61754_0d003e52",
+        "filename": "src/isp_firmware/main.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1013315
+      },
+      "writtenOn": "2018-08-28T04:20:14Z",
+      "side": 1,
+      "message": "Right, it\u0027s not allocated anywhere, but LD lets you grab any symbol value.\n\nAnyway, I agree your cleanup\u0027s are cleaner and more portable :-)",
+      "parentUuid": "4fa179f4_7e56e3ca",
+      "revId": "06657aad8da44efe700889168673fcd5d446a128",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
