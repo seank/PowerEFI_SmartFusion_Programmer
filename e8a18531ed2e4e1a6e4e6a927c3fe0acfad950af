@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "659b28dd_b76e7a89",
+        "filename": "src/isp_firmware/main.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1013321
+      },
+      "writtenOn": "2018-08-28T14:55:18Z",
+      "side": 1,
+      "message": "sorry man - I see whats going on now. I thought you were trying to get to what the symbol reference but you\u0027re really setting the VTOR (or equiv)?  ... drop the index, or add a \u0026 to the front of what you have here. Thats why the symbol worked.",
+      "revId": "e8a18531ed2e4e1a6e4e6a927c3fe0acfad950af",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
